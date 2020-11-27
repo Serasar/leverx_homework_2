@@ -1,7 +1,7 @@
 class Version:
     def __init__(self, version):
         self.version = version
-        self.version_int = 0
+        self.__version_int = 0
         self.STRING_WORTH = {"a": 1, "b": 2, "alpha": -2, "beta": -1, "r": -5}
         self.MAJOR_WORTH = 100
         self.MINOR_WORTH = 10
@@ -18,44 +18,44 @@ class Version:
         main_part, suffix = main_part.split("."), suffix.split(".")
         # Process main part
         # Process major version
-        self.version_int += int(main_part[0]) * self.MAJOR_WORTH
+        self.__version_int += int(main_part[0]) * self.MAJOR_WORTH
         # Process minor version
         if int(main_part[1]) < 10:
-            self.version_int += int(main_part[1]) * self.MINOR_WORTH
+            self.__version_int += int(main_part[1]) * self.MINOR_WORTH
         else:
-            self.version_int += int(main_part[1])
+            self.__version_int += int(main_part[1])
         # Process patch version
         if main_part[2][-1].isalpha():
-            self.version_int += self.STRING_WORTH[main_part[2][-1]] * self.PATCH_WORTH
+            self.__version_int += self.STRING_WORTH[main_part[2][-1]] * self.PATCH_WORTH
             main_part[2] = main_part[2][:-1]
-            self.version_int += int(main_part[2]) * self.PATCH_WORTH
+            self.__version_int += int(main_part[2]) * self.PATCH_WORTH
         else:
-            self.version_int += int(main_part[2]) * self.PATCH_WORTH
+            self.__version_int += int(main_part[2]) * self.PATCH_WORTH
         # Process suffix part
         if suffix != [""]:
             for symbol in suffix:
                 if symbol.isalpha():
-                    self.version_int += self.STRING_WORTH[symbol] * self.PATCH_WORTH
+                    self.__version_int += self.STRING_WORTH[symbol] * self.PATCH_WORTH
                 else:
-                    self.version_int += int(symbol) * self.PATCH_WORTH
+                    self.__version_int += int(symbol) * self.PATCH_WORTH
 
     def __eq__(self, other):
-        return self.version_int == other.version_int
+        return self.__version_int == other.__version_int
 
     def __ne__(self, other):
-        return self.version_int != other.version_int
+        return self.__version_int != other.__version_int
 
     def __le__(self, other):
-        return self.version_int <= other.version_int
+        return self.__version_int <= other.__version_int
 
     def __ge__(self, other):
-        return self.version_int >= other.version_int
+        return self.__version_int >= other.__version_int
 
     def __lt__(self, other):
-        return self.version_int < other.version_int
+        return self.__version_int < other.__version_int
 
     def __gt__(self, other):
-        return self.version_int > other.version_int
+        return self.__version_int > other.__version_int
 
 
 def main():
